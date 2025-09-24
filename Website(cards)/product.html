@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Product Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .product-image {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .btn-buy {
+            background-color: #ffcc00;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="btn btn-secondary mb-3">⬅ Back to Home</a>
+    <div class="row">
+        <div class="col-md-6">
+            <img id="productImage" class="product-image">
+        </div>
+        <div class="col-md-6">
+            <h2 id="productName"></h2>
+            <h4 id="productPrice" class="text-muted"></h4>
+            <p id="productDesc"></p>
+            <button class="btn btn-buy" onclick="buyNow()">Buy Now</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let products = {
+        "charizard": { name: "Charizard VMAX", price: "$39.99", img: "img/poke1.png", desc: "Powerful Charizard VMAX card for collectors and players." },
+        "umbreon": { name: "Umbreon VMAX", price: "$49.99", img: "img/poke2.webp", desc: "A dark and mystical Umbreon VMAX card." },
+        "pikachu": { name: "Pikachu V", price: "$29.99", img: "img/poke3.jpg", desc: "Pikachu V brings electric power to your deck!" },
+        "lucario": { name: "Lucario GX", price: "$34.99", img: "img/poke4.jpg", desc: "A rare Lucario GX card with strong battle abilities." },
+        "mewtwo": { name: "Mewtwo EX", price: "$44.99", img: "img/poke5.jpg", desc: "A legendary psychic-type Mewtwo EX card." },
+        "booster1": { name: "Sword & Shield Booster Box", price: "$99.99", img: "img/booster1.jpg", desc: "A complete booster box for Pokémon TCG players." },
+        "booster2": { name: "Zenith for Kings Booster", price: "$119.99", img: "img/booster2.jpg", desc: "A special edition booster pack with legendary cards." },
+        "booster3": { name: "Crimson and Purple Box", price: "$89.99", img: "img/booster3.jpg", desc: "A unique booster box with rare Pokémon cards." }
+    };
+
+    function loadProduct() {
+        let params = new URLSearchParams(window.location.search);
+        let productKey = params.get("id");
+
+        if (productKey in products) {
+            let product = products[productKey];
+            document.getElementById("productName").innerText = product.name;
+            document.getElementById("productPrice").innerText = product.price;
+            document.getElementById("productImage").src = product.img;
+            document.getElementById("productDesc").innerText = product.desc;
+        } else {
+            document.querySelector(".container").innerHTML = "<h2>Product Not Found</h2>";
+        }
+    }
+
+    function buyNow() {
+        let params = new URLSearchParams(window.location.search);
+        window.location.href = "buy.html?id=" + params.get("id");
+    }
+
+    window.onload = loadProduct;
+</script>
+
+</body>
+</html>
